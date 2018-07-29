@@ -10,9 +10,10 @@ float dt=0.1; // s
 int fire_flickerIntens = 40;
 float fireVal = 0;
 float fireDecay = 0.98;
+int fireMax = 255; // Maximum fire value for PWM
 
 // Potentiometer transimtion 
-float potTransmition= 128; // = 128./3 *60/180
+float potTransmition= 255; // = 255./3 *60/180
 int potDir = 1; // 1 or -1 -- decide through testing
 int potVal_old = 0;
 
@@ -28,7 +29,7 @@ void setup() {
   // Set up potentiometer tranmition
   // angle of potentiometer - 60 deg/180
   // 3 cycle to pump fire up (128/3)
-  potTransmition=128;
+  potTransmition=fireMax;
   
   // Initialize potentiometer value
   potVal_old = analogRead(potPin);
@@ -47,10 +48,10 @@ void loop()
   
   // Add natural fire variation
   int fireVal_natural = fireVal + random(0, fire_flickerIntens); // add white noise to fire
-  analogWrite(ledPin, fireVal_natural); // Set PWM
+  analogWrite(ledPin, min(fireVal_natural, fireMax) ); // Set PWM
   
   // Decay of fire
-  fireVal = fireVal*fireDecay;
+  fireVal = min(fireVal*fireDecay, 2*fireMax); // Let be able to save internally (2*fireMax
   
   delay(dt); // Change to wait constant time. Maybe.. Random time might be nice too. Do something with it or remain silent forever.
 }
