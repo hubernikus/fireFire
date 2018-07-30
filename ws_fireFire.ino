@@ -44,7 +44,7 @@ void loop()
   potVal_old = potVal;
 
   // Update Fire PWN
-  fireVal = min(fireVal + max(potDir*deltaPot,0)*potTransmition, 128); // update fire, limit to maximum of 128
+  fireVal = fireVal + max(potDir*deltaPot,0)*potTransmition; // update fire
 
   // Add natural fire variation
   int fireVal_natural = fireVal + random(0, fire_flickerIntens); // add white noise to fire
