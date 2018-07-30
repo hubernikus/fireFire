@@ -9,11 +9,11 @@ float dt=0.1; // s
 // Fire intesity change
 int fire_flickerIntens = 40;
 float fireVal = 0;
-float fireDecay = 0.98;
+float fireDecay;
 int fireMax = 255; // Maximum fire value for PWM
 
 // Potentiometer transimtion
-float potTransmition= 255; // = 255./3 *60/180
+float potTransmition; // = 255./3 *60/180
 int potDir = 1; // 1 or -1 -- decide through testing
 int potVal_old = 0;
 
